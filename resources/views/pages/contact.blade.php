@@ -1,6 +1,6 @@
 @extends('layouts.app', ['title' => $page?->t('meta_title') ?: $page?->t('hero_title')])
 @section('content')
-<section class="py-6 bg-soft"><div class="container"><h1 class="mb-3">{{ $page?->t('hero_title') }}</h1><p class="lead mb-0">{{ $page?->t('hero_subtitle') ?: __('messages.contact_intro') }}</p></div></section>
+<section class="py-6 bg-soft"><div class="container"><h1 class="mb-3">{{ $page?->t('hero_title') ?: ($settings?->t('company_name') ?? 'Queue Company') }}</h1><p class="lead mb-0">{{ $page?->t('hero_subtitle') ?: __('messages.contact_intro') }}</p></div></section>
 <section class="py-6"><div class="container"><div class="row g-4"><div class="col-lg-7"><div class="surface-card h-100">@if(session('success'))<div class="alert alert-success">{{ session('success') }}</div>@endif
 <form method="POST" action="{{ route('contact.store') }}" data-track-event="contact_submission_attempt" class="row g-3">@csrf
 <div class="col-md-6"><label class="form-label">Name</label><input name="name" value="{{ old('name') }}" class="form-control" required></div>

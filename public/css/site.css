@@ -76,3 +76,12 @@ body { font-family: "Cairo", "Noto Sans Arabic", system-ui, -apple-system, sans-
 .demo-modal { border: 1px solid #e7edf5; box-shadow: 0 14px 30px rgba(15,23,42,.12); }
 [dir="rtl"] body { text-align: right; }
 [dir="rtl"] .hero-stat-card .d-flex { flex-direction: row-reverse; }
+
+/* Admin RTL improvements */
+[dir="rtl"] .admin-body .navbar-vertical { right: 0; left: auto; }
+[dir="rtl"] .admin-body .page-wrapper { margin-right: var(--tblr-sidebar-width); margin-left: 0; }
+[dir="rtl"] .admin-body .text-end { text-align: left !important; }
+[dir="rtl"] .admin-body .btn-list { justify-content: flex-start; }
+[dir="rtl"] .admin-body .breadcrumb-item + .breadcrumb-item::before { float: right; transform: scaleX(-1); }
+[dir="rtl"] .admin-body .form-hint { display: block; text-align: right; }
+[dir="rtl"] .admin-body .dropdown-menu-end { --tblr-position: start; }

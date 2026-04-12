@@ -35,7 +35,19 @@ class PageRequest extends FormRequest
             'cta_link' => ['nullable', 'string', 'max:255'],
             'body_en' => ['nullable', 'string'],
             'body_ar' => ['nullable', 'string'],
-            'sections' => ['nullable', 'string'],
+            'sections' => ['nullable', 'json'],
+        ];
+    }
+
+    public function attributes(): array
+    {
+        return [
+            'title_en' => __('messages.admin.form.title_en'),
+            'title_ar' => __('messages.admin.form.title_ar'),
+            'slug' => __('messages.admin.form.slug'),
+            'status' => __('messages.admin.form.status'),
+            'sort_order' => __('messages.admin.form.sort_order'),
+            'sections' => __('messages.admin.form.sections_json'),
         ];
     }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\FeedbackRequest;
 use App\Mail\NewInboxNotificationMail;
 use App\Models\FeedbackReport;
+use App\Models\Page;
 use App\Models\SiteSetting;
 use App\Services\AnalyticsTracker;
 use Illuminate\Http\RedirectResponse;
@@ -15,7 +16,10 @@ class FeedbackController extends Controller
 {
     public function create()
     {
-        return view('pages.feedback', ['settings' => SiteSetting::current()]);
+        return view('pages.feedback', [
+            'settings' => SiteSetting::current(),
+            'page' => Page::where('slug', 'feedback')->first(),
+        ]);
     }
 
     public function store(FeedbackRequest $request, AnalyticsTracker $tracker): RedirectResponse

@@ -12,8 +12,8 @@ $services = data_get($sections, 'services', []);
         <div class="row align-items-center g-5">
             <div class="col-lg-7">
                 <span class="hero-kicker">{{ app()->getLocale()==='ar' ? data_get($sections,'trust_badge_ar',$settings->company_tagline_ar) : data_get($sections,'trust_badge_en',$settings->company_tagline_en) }}</span>
-                <h1 class="display-4 fw-bold mt-3 mb-3">{{ $page?->t('hero_title') }}</h1>
-                <p class="lead text-white-50 mb-4">{{ $page?->t('hero_subtitle') }}</p>
+                <h1 class="display-4 fw-bold mt-3 mb-3">{{ $page?->t('hero_title') ?: ($settings?->t('company_name') ?? 'Queue Company') }}</h1>
+                <p class="lead text-white-50 mb-4">{{ $page?->t('hero_subtitle') ?: __('messages.contact_intro') }}</p>
                 <div class="d-flex flex-wrap gap-3">
                     <a href="{{ $settings->homepage_primary_cta_link ?: route('projects.index') }}" class="btn btn-primary btn-lg rounded-pill px-4">{{ $settings->t('homepage_primary_cta_label') }}</a>
                     <a href="{{ $settings->homepage_secondary_cta_link ?: route('contact') }}" data-track-event="contact_click" class="btn btn-outline-light btn-lg rounded-pill px-4">{{ $settings->t('homepage_secondary_cta_label') }}</a>
