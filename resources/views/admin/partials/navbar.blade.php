@@ -6,11 +6,11 @@
                     <span class="avatar avatar-sm" style="background-image: url(https://ui-avatars.com/api/?name=Admin&background=206bc4&color=fff)"></span>
                     <div class="d-none d-xl-block ps-2">
                         <div>Admin</div>
-                        <div class="mt-1 small text-secondary">Authenticated User</div>
+                        <div class="mt-1 small text-secondary">{{ __('messages.admin.panel') }}</div>
                     </div>
                 </a>
                 <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                    <a href="{{ route('home') }}" class="dropdown-item" target="_blank">Public Site</a>
+                    <a href="{{ route('home') }}" class="dropdown-item" target="_blank">{{ __('messages.buttons.view_site') }}</a>
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
                         <button type="submit" class="dropdown-item">Logout</button>

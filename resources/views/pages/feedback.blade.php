@@ -1,6 +1,6 @@
-@extends('layouts.app', ['title' => app()->getLocale() === 'ar' ? 'إرسال ملاحظة' : 'Send Feedback'])
+@extends('layouts.app', ['title' => $page?->t('meta_title') ?: $page?->t('hero_title') ?: __('messages.feedback_title')])
 @section('content')
-<section class="py-6 bg-soft"><div class="container"><h1 class="mb-2">{{ app()->getLocale() === 'ar' ? 'ملاحظات وتقارير' : 'Feedback & Bug Reports' }}</h1><p class="lead mb-0">{{ app()->getLocale() === 'ar' ? 'ساعدنا على تحسين الخدمات.' : 'Help us improve quality and support.' }}</p></div></section>
+<section class="py-6 bg-soft"><div class="container"><h1 class="mb-2">{{ $page?->t('hero_title') ?: __('messages.feedback_title') }}</h1><p class="lead mb-0">{{ $page?->t('hero_subtitle') ?: __('messages.feedback_intro') }}</p></div></section>
 <section class="py-6"><div class="container"><div class="row justify-content-center"><div class="col-lg-8"><div class="surface-card">@if(session('success'))<div class="alert alert-success">{{ session('success') }}</div>@endif
 <form method="POST" action="{{ route('feedback.store') }}" enctype="multipart/form-data" class="row g-3">@csrf
 <div class="col-md-6"><label class="form-label">Name</label><input class="form-control" name="name" value="{{ old('name') }}" required></div><div class="col-md-6"><label class="form-label">Email</label><input type="email" class="form-control" name="email" value="{{ old('email') }}" required></div>

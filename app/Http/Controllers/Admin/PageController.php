@@ -16,6 +16,19 @@ class PageController extends Controller
         ]);
     }
 
+    public function create()
+    {
+        return view('admin.pages.create', ['page' => new Page()]);
+    }
+
+    public function store(PageRequest $request): RedirectResponse
+    {
+        $data = $this->prepareData($request->validated());
+        Page::create($data);
+
+        return redirect()->route('admin.pages.index')->with('success', __('messages.admin.page_created'));
+    }
+
     public function edit(Page $page)
     {
         return view('admin.pages.edit', compact('page'));
@@ -23,13 +36,24 @@ class PageController extends Controller
 
     public function update(PageRequest $request, Page $page): RedirectResponse
     {
-        $data = $request->validated();
+        $page->update($this->prepareData($request->validated()));
+
+        return back()->with('success', __('messages.admin.page_saved'));
+    }
+
+    public function destroy(Page $page): RedirectResponse
+    {
+        $page->delete();
+
+        return redirect()->route('admin.pages.index')->with('success', __('messages.admin.page_deleted'));
+    }
+
+    private function prepareData(array $data): array
+    {
         $data['sections'] = $this->parseJson($data['sections'] ?? null);
         $data['sort_order'] = (int) ($data['sort_order'] ?? 0);
 
-        $page->update($data);
-
-        return back()->with('success', __('messages.saved_successfully'));
+        return $data;
     }
 
     private function parseJson(?string $json): array

@@ -1,7 +1,7 @@
-@extends('admin.layouts.app', ['title' => 'Site Settings'])
+@extends('admin.layouts.app', ['title' => __('messages.admin.settings')])
 
 @section('content')
-<div class="page-header d-print-none mb-3"><h2 class="page-title">Site Settings</h2></div>
+<div class="page-header d-print-none mb-3"><h2 class="page-title">{{ __('messages.admin.settings') }}</h2></div>
 <form method="POST" action="{{ route('admin.settings.update') }}" enctype="multipart/form-data" class="card">
     @csrf @method('PUT')
     <div class="card-body">
@@ -34,6 +34,6 @@
             <div class="col-md-6"><label class="form-label">CTA 2 link</label><input class="form-control" name="homepage_secondary_cta_link" value="{{ old('homepage_secondary_cta_link', $settings->homepage_secondary_cta_link) }}"></div>
         </div>
     </div>
-    <div class="card-footer text-end"><button class="btn btn-primary">Save Settings</button></div>
+    <div class="card-footer text-end"><button class="btn btn-primary">{{ __('messages.buttons.save') }}</button></div>
 </form>
 @endsection

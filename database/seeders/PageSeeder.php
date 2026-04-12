@@ -16,6 +16,7 @@ class PageSeeder extends Seeder
             ['slug' => 'contact', 'title_en' => 'Contact', 'title_ar' => 'اتصل بنا', 'hero_title_en' => 'Contact Us', 'hero_title_ar' => 'اتصل بنا', 'hero_subtitle_en' => 'Tell us about your software goals and we will respond with a practical roadmap.', 'hero_subtitle_ar' => 'أخبرنا بأهدافك البرمجية وسنعود لك بخارطة طريق عملية.', 'status' => 'published', 'sort_order' => 4],
             ['slug' => 'demo-login', 'title_en' => 'Demo Login', 'title_ar' => 'تسجيل الدخول التجريبي', 'hero_title_en' => 'Demo Login', 'hero_title_ar' => 'تسجيل الدخول التجريبي', 'hero_subtitle_en' => 'Use these credentials to evaluate selected solutions.', 'hero_subtitle_ar' => 'استخدم هذه البيانات لتجربة الحلول المتاحة.', 'status' => 'published', 'sort_order' => 5],
             ['slug' => 'projects', 'title_en' => 'Projects', 'title_ar' => 'المشاريع', 'hero_title_en' => 'Projects', 'hero_title_ar' => 'المشاريع', 'hero_subtitle_en' => 'Browse ERP, POS, SaaS, and custom software solutions built by our team.', 'hero_subtitle_ar' => 'تصفح حلول ERP وPOS وSaaS والبرمجيات المخصصة التي نفذها فريقنا.', 'status' => 'published', 'sort_order' => 6],
+            ['slug' => 'feedback', 'title_en' => 'Feedback', 'title_ar' => 'الملاحظات', 'hero_title_en' => 'Feedback & Bug Reports', 'hero_title_ar' => 'الملاحظات وتقارير الأخطاء', 'hero_subtitle_en' => 'Help us improve quality and support.', 'hero_subtitle_ar' => 'ساعدنا على تحسين الجودة والدعم.', 'status' => 'published', 'sort_order' => 7],
         ];
 
         foreach ($pages as $page) {

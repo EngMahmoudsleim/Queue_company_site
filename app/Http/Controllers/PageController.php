@@ -12,7 +12,7 @@ class PageController extends Controller
 {
     private function pageBySlug(string $slug): ?Page
     {
-        return Page::where('slug', $slug)->first();
+        return Page::where('slug', $slug)->where('status', 'published')->first();
     }
 
     public function home()

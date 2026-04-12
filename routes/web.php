@@ -38,7 +38,7 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::resource('projects', AdminProjectController::class)->except(['show']);
     Route::get('/settings', [SiteSettingController::class, 'edit'])->name('settings.edit');
     Route::put('/settings', [SiteSettingController::class, 'update'])->name('settings.update');
-    Route::resource('pages', AdminPageController::class)->only(['index', 'edit', 'update']);
+    Route::resource('pages', AdminPageController::class)->except(['show']);
     Route::get('/inbox', [InboxController::class, 'index'])->name('inbox.index');
     Route::patch('/inbox/contact/{contact}', [InboxController::class, 'updateContact'])->name('inbox.contacts.update');
     Route::patch('/inbox/feedback/{feedback}', [InboxController::class, 'updateFeedback'])->name('inbox.feedback.update');

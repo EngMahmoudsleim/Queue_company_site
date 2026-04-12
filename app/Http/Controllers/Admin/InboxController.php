@@ -32,20 +32,20 @@ class InboxController extends Controller
     {
         $contact->update($request->validate(['status' => ['required', 'in:new,in_progress,resolved,ignored'], 'admin_note' => ['nullable', 'string']]));
 
-        return back()->with('success', 'Contact message updated.');
+        return back()->with('success', __('messages.saved_successfully'));
     }
 
     public function updateFeedback(Request $request, FeedbackReport $feedback): RedirectResponse
     {
         $feedback->update($request->validate(['status' => ['required', 'in:new,in_progress,resolved,ignored'], 'admin_note' => ['nullable', 'string']]));
 
-        return back()->with('success', 'Feedback report updated.');
+        return back()->with('success', __('messages.saved_successfully'));
     }
 
     public function updateDemo(Request $request, DemoRequest $demoRequest): RedirectResponse
     {
         $demoRequest->update($request->validate(['status' => ['required', 'in:new,in_progress,resolved,ignored'], 'admin_note' => ['nullable', 'string']]));
 
-        return back()->with('success', 'Demo request updated.');
+        return back()->with('success', __('messages.saved_successfully'));
     }
 }
