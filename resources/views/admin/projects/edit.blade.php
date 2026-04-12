@@ -10,7 +10,7 @@
 
 @section('content')
 <div class="page-header d-print-none mb-3"><h2 class="page-title">Edit Project</h2></div>
-<form method="POST" action="{{ route('admin.projects.update',$project) }}" class="card">
+<form method="POST" action="{{ route('admin.projects.update', $project) }}" class="card" enctype="multipart/form-data">
     @method('PUT')
     <div class="card-body">@include('admin.projects.form')</div>
 </form>

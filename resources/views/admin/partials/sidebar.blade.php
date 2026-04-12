@@ -8,15 +8,11 @@
         </h1>
         <div class="collapse navbar-collapse" id="sidebar-menu">
             <ul class="navbar-nav pt-lg-3">
-                <li class="nav-item {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
-                    <a class="nav-link" href="{{ route('admin.dashboard') }}"><span class="nav-link-title">Dashboard</span></a>
-                </li>
-                <li class="nav-item {{ request()->routeIs('admin.projects.*') ? 'active' : '' }}">
-                    <a class="nav-link" href="{{ route('admin.projects.index') }}"><span class="nav-link-title">Projects</span></a>
-                </li>
-                <li class="nav-item mt-2">
-                    <a class="nav-link" href="{{ route('home') }}" target="_blank"><span class="nav-link-title">View Website</span></a>
-                </li>
+                <li class="nav-item {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}"><a class="nav-link" href="{{ route('admin.dashboard') }}"><span class="nav-link-title">Dashboard</span></a></li>
+                <li class="nav-item {{ request()->routeIs('admin.projects.*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('admin.projects.index') }}"><span class="nav-link-title">Projects</span></a></li>
+                <li class="nav-item {{ request()->routeIs('admin.pages.*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('admin.pages.index') }}"><span class="nav-link-title">Pages / Content</span></a></li>
+                <li class="nav-item {{ request()->routeIs('admin.settings.*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('admin.settings.edit') }}"><span class="nav-link-title">Site Settings</span></a></li>
+                <li class="nav-item mt-2"><a class="nav-link" href="{{ route('home') }}" target="_blank"><span class="nav-link-title">View Website</span></a></li>
             </ul>
         </div>
     </div>
