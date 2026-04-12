@@ -20,12 +20,16 @@ class Project extends Model
         'gallery_images',
         'gallery_images_source',
         'category',
+        'project_type',
+        'deployment_mode',
+        'supported_platforms',
         'industry',
         'tech_stack',
         'features',
         'demo_url',
         'demo_username',
         'demo_password',
+        'demo_note',
         'status',
         'is_featured',
         'sort_order',
@@ -33,12 +37,13 @@ class Project extends Model
         'meta_description',
     ];
 
-    protected $appends = ['featured_image_url'];
+    protected $appends = ['featured_image_url', 'gallery_image_urls'];
 
     protected function casts(): array
     {
         return [
             'gallery_images' => 'array',
+            'supported_platforms' => 'array',
             'tech_stack' => 'array',
             'features' => 'array',
             'is_featured' => 'boolean',
@@ -65,5 +70,16 @@ class Project extends Model
         }
 
         return 'https://placehold.co/1200x500';
+    }
+
+    public function getGalleryImageUrlsAttribute(): array
+    {
+        return collect($this->gallery_images ?? [])->map(function ($item) {
+            if (str_starts_with($item, 'http://') || str_starts_with($item, 'https://') || str_starts_with($item, '/')) {
+                return $item;
+            }
+
+            return Storage::url($item);
+        })->all();
     }
 }

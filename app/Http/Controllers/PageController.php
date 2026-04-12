@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Page;
 use App\Models\Project;
 use App\Models\SiteSetting;
+use App\Services\AnalyticsTracker;
+use Illuminate\Http\Request;
 
 class PageController extends Controller
 {
@@ -41,9 +43,12 @@ class PageController extends Controller
         ]);
     }
 
-    public function projectShow(string $slug)
+    public function projectShow(string $slug, Request $request, AnalyticsTracker $tracker)
     {
-        return view('pages.projects.show', ['project' => Project::whereSlug($slug)->firstOrFail()]);
+        $project = Project::whereSlug($slug)->firstOrFail();
+        $tracker->track($request, 'project_view', ['project_id' => $project->id, 'page_slug' => 'projects/'.$slug]);
+
+        return view('pages.projects.show', ['project' => $project]);
     }
 
     public function demoLogin()
