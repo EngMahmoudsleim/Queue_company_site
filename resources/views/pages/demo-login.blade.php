@@ -1,0 +1,4 @@
+@extends('layouts.app', ['title' => 'Demo Login | Queue Company'])
+@section('content')
+<div class="container"><h1 class="mb-4">Demo Login Directory</h1><div class="row g-4">@forelse($projects as $project)<div class="col-lg-6"><div class="credentials-box p-4 h-100"><h5>{{ $project->title }}</h5><p class="text-muted">{{ $project->short_description }}</p><p><span class="badge bg-secondary">{{ ucfirst(str_replace('_',' ',$project->status)) }}</span></p>@if($project->demo_url)<p class="mb-1"><strong>URL:</strong> {{ $project->demo_url }}</p><p class="mb-1"><strong>Username:</strong> {{ $project->demo_username }}</p><p class="mb-3"><strong>Password:</strong> {{ $project->demo_password }}</p><a class="btn btn-primary btn-sm" target="_blank" href="{{ $project->demo_url }}">Open Demo</a>@else<p class="mb-0">Demo will be available soon.</p>@endif</div></div>@empty<div class="alert alert-info">No demos have been published yet.</div>@endforelse</div></div>
+@endsection

@@ -1,0 +1,4 @@
+@extends('layouts.app', ['title' => 'Admin Dashboard'])
+@section('content')
+<div class="container"><div class="d-flex justify-content-between align-items-center mb-4"><h1>Dashboard</h1><form method="POST" action="{{ route('logout') }}">@csrf<button class="btn btn-outline-danger btn-sm">Logout</button></form></div><div class="row g-3 mb-4"><div class="col-md-4"><div class="card p-3"><strong>{{ $projectsCount }}</strong><span>Total Projects</span></div></div><div class="col-md-4"><div class="card p-3"><strong>{{ $featuredCount }}</strong><span>Featured Projects</span></div></div><div class="col-md-4"><div class="card p-3"><strong>{{ $messagesCount }}</strong><span>Contact Messages</span></div></div></div><a href="{{ route('admin.projects.index') }}" class="btn btn-primary">Manage Projects</a></div>
+@endsection
