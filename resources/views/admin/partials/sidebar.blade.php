@@ -4,7 +4,8 @@ $menuItems = [
     ['route' => 'admin.inbox.index', 'label' => __('messages.admin.inbox'), 'icon' => 'bi-inbox-fill', 'active' => 'admin.inbox.*'],
     ['route' => 'admin.projects.index', 'label' => __('messages.admin.projects'), 'icon' => 'bi-kanban-fill', 'active' => 'admin.projects.*'],
     ['route' => 'admin.pages.index', 'label' => __('messages.admin.pages'), 'icon' => 'bi-file-earmark-richtext-fill', 'active' => 'admin.pages.*'],
-    ['route' => 'admin.settings.edit', 'label' => __('messages.admin.settings'), 'icon' => 'bi-sliders2-vertical', 'active' => 'admin.settings.*'],
+    ['route' => 'admin.settings.edit', 'label' => __('messages.admin.settings'), 'icon' => 'bi-sliders2-vertical', 'active' => 'admin.settings.edit'],
+    ['route' => 'admin.settings.ai.edit', 'label' => 'AI Providers', 'icon' => 'bi-robot', 'active' => 'admin.settings.ai.*'],
     ['route' => 'admin.themes.edit', 'label' => __('messages.admin.theme_manager'), 'icon' => 'bi-palette-fill', 'active' => 'admin.themes.*'],
     ['route' => 'admin.profile.edit', 'label' => __('messages.admin.profile'), 'icon' => 'bi-person-circle', 'active' => 'admin.profile.*'],
 ];
