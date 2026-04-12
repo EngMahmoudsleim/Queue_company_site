@@ -37,6 +37,12 @@ class SiteSetting extends Model
         'default_seo_description_en',
         'default_seo_description_ar',
         'admin_notification_email',
+        'active_theme',
+        'theme_primary_color',
+        'theme_secondary_color',
+        'theme_button_radius',
+        'theme_hero_variant',
+        'theme_spacing',
     ];
 
     protected function casts(): array
@@ -73,6 +79,12 @@ class SiteSetting extends Model
             'default_seo_description_en' => 'Queue Company builds ERP, POS, SaaS, and custom software products.',
             'default_seo_description_ar' => 'كيو كومباني تطوّر حلول ERP وPOS ومنصات SaaS وبرمجيات مخصصة.',
             'admin_notification_email' => 'admin@queue-company.test',
+            'active_theme' => 'enterprise',
+            'theme_primary_color' => '#206bc4',
+            'theme_secondary_color' => '#1d4ed8',
+            'theme_button_radius' => 'rounded',
+            'theme_hero_variant' => 'classic',
+            'theme_spacing' => 'comfortable',
         ]);
     }
 

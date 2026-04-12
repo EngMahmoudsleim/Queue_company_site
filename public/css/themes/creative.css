@@ -1,0 +1,17 @@
+.theme-creative {
+  --theme-bg: #fffaf8;
+  --ink: #2b1a3a;
+  --muted: #7d6596;
+}
+.theme-creative .site-navbar { background: linear-gradient(90deg, #5b2be0, #ff5f6d); }
+.theme-creative .hero-section { background: linear-gradient(125deg, #25143d 0%, #4c1d95 40%, #db2777 100%); }
+.theme-creative .hero-kicker { background: rgba(255,255,255,.18); border-color: rgba(255,255,255,.45); }
+.theme-creative .feature-card,.theme-creative .service-card,.theme-creative .project-card {
+  border: 0;
+  border-radius: 1.3rem;
+  box-shadow: 0 16px 36px rgba(95,52,180,.18);
+  background: linear-gradient(180deg,#fff,#fff7ff);
+}
+.theme-creative .surface-card,.theme-creative .credentials-box { border: 1px solid #efdfff; border-radius: 1.3rem; }
+.theme-creative .cta-banner { background: linear-gradient(130deg, #ff5f6d, #7c3aed); box-shadow: 0 16px 42px rgba(124,58,237,.3); }
+.theme-creative .section-title { letter-spacing: -.01em; }

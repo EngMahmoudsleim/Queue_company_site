@@ -1,0 +1,8 @@
+.theme-enterprise {
+  --theme-surface: #ffffff;
+  --theme-bg: #f4f7fc;
+}
+.theme-enterprise .site-navbar { background: rgba(15,23,42,.92); }
+.theme-enterprise .hero-section { background: radial-gradient(circle at 20% 0%, #1e3a8a 0%, #0f172a 45%, #0b1020 100%); }
+.theme-enterprise .feature-card,.theme-enterprise .service-card,.theme-enterprise .project-card,.theme-enterprise .surface-card,.theme-enterprise .credentials-box { border-radius: 1rem; }
+.theme-enterprise .cta-banner { background: linear-gradient(135deg, var(--brand), var(--brand-dark)); }
