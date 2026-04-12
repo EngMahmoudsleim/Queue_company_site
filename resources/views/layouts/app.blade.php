@@ -1,4 +1,11 @@
-@php($settings = \App\Models\SiteSetting::current())
+@php
+$settings = \App\Models\SiteSetting::current();
+$activeTheme = \App\Services\ThemeManager::resolvedTheme($settings->active_theme);
+$themeStyle = collect([
+    $settings->theme_primary_color ? '--brand: '.$settings->theme_primary_color : null,
+    $settings->theme_secondary_color ? '--brand-dark: '.$settings->theme_secondary_color : null,
+])->filter()->implode(';');
+@endphp
 <!doctype html>
 <html lang="{{ app()->getLocale() }}" dir="{{ app()->getLocale() === 'ar' ? 'rtl' : 'ltr' }}">
 <head>
@@ -13,8 +20,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="{{ asset('css/site.css') }}" rel="stylesheet">
+    <link href="{{ asset(\App\Services\ThemeManager::cssFile($activeTheme)) }}" rel="stylesheet">
 </head>
-<body class="public-body">
+<body class="public-body theme-{{ $activeTheme }} btn-{{ $settings->theme_button_radius }} spacing-{{ $settings->theme_spacing }} hero-{{ $settings->theme_hero_variant }}" style="{{ $themeStyle }}">
 <div class="page-shell">
     @include('partials.navbar')
     <main>@yield('content')</main>

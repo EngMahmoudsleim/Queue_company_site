@@ -1,0 +1,19 @@
+.theme-minimal {
+  --theme-bg: #f8fafc;
+  --ink: #0f172a;
+  --muted: #475569;
+}
+.theme-minimal .site-navbar { background: rgba(255,255,255,.95); border-bottom: 1px solid #e2e8f0; }
+.theme-minimal .site-navbar .navbar-brand,
+.theme-minimal .site-navbar .nav-link { color: #0f172a !important; }
+.theme-minimal .hero-section { background: #f8fafc; color: #0f172a; border-bottom: 1px solid #e2e8f0; }
+.theme-minimal .hero-kicker { background: #e2e8f0; border-color: #cbd5e1; color: #0f172a; }
+.theme-minimal .hero-stat-card { background: #fff; border: 1px solid #e2e8f0; color: #0f172a; }
+.theme-minimal .feature-card,.theme-minimal .service-card,.theme-minimal .project-card,.theme-minimal .surface-card,.theme-minimal .credentials-box {
+  border-radius: .6rem;
+  border: 1px solid #dbe3ee;
+  box-shadow: none;
+}
+.theme-minimal .cta-banner { background: #0f172a; box-shadow: none; }
+.theme-minimal .site-footer { background: #ffffff; color: #334155; border-top: 1px solid #e2e8f0; }
+.theme-minimal .site-footer a { color: #334155; }
