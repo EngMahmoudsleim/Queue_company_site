@@ -24,6 +24,8 @@ class SiteSetting extends Model
         'office_address_en',
         'office_address_ar',
         'social_links',
+        'ai_provider_keys',
+        'ai_default_provider',
         'footer_text_en',
         'footer_text_ar',
         'homepage_primary_cta_label_en',
@@ -49,6 +51,7 @@ class SiteSetting extends Model
     {
         return [
             'social_links' => 'array',
+            'ai_provider_keys' => 'array',
         ];
     }
 
@@ -79,6 +82,13 @@ class SiteSetting extends Model
             'default_seo_description_en' => 'Queue Company builds ERP, POS, SaaS, and custom software products.',
             'default_seo_description_ar' => 'كيو كومباني تطوّر حلول ERP وPOS ومنصات SaaS وبرمجيات مخصصة.',
             'admin_notification_email' => 'admin@queue-company.test',
+            'ai_provider_keys' => [
+                'grok' => null,
+                'gemini' => null,
+                'openrouter' => null,
+                'huggingface' => null,
+            ],
+            'ai_default_provider' => 'grok',
             'active_theme' => 'enterprise',
             'theme_primary_color' => '#206bc4',
             'theme_secondary_color' => '#1d4ed8',

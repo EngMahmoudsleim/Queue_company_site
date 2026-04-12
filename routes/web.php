@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AiSettingController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\InboxController;
 use App\Http\Controllers\Admin\PageController as AdminPageController;
@@ -40,6 +41,8 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::resource('projects', AdminProjectController::class)->except(['show']);
     Route::get('/settings', [SiteSettingController::class, 'edit'])->name('settings.edit');
     Route::put('/settings', [SiteSettingController::class, 'update'])->name('settings.update');
+    Route::get('/settings/ai', [AiSettingController::class, 'edit'])->name('settings.ai.edit');
+    Route::put('/settings/ai', [AiSettingController::class, 'update'])->name('settings.ai.update');
     Route::resource('pages', AdminPageController::class)->except(['show']);
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
