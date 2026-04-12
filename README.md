@@ -7,6 +7,8 @@ Production-minded starter for a software company website with:
 - Contact form with persistence
 - Admin-auth-protected CRUD for projects
 - Seeded realistic projects and admin user
+- Tabler-based admin dashboard UI
+- Cairo typography and premium public interactions
 
 ## Setup
 1. `composer install`
@@ -30,3 +32,7 @@ Production-minded starter for a software company website with:
 - `/contact`
 - `/login`
 - `/admin/dashboard`
+
+## UI assets
+- **Public UI:** Bootstrap + `public/css/site.css` + `public/js/public-effects.js`
+- **Admin UI:** Tabler loaded via CDN in `resources/views/admin/layouts/app.blade.php`
