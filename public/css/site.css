@@ -71,3 +71,8 @@ body { font-family: "Cairo", "Noto Sans Arabic", system-ui, -apple-system, sans-
   .mouse-lift, .hero-orb { transition: none !important; }
   .mouse-lift:hover { transform: none; }
 }
+
+.demo-modal .modal-content, .demo-modal { border-radius: 1rem; }
+.demo-modal { border: 1px solid #e7edf5; box-shadow: 0 14px 30px rgba(15,23,42,.12); }
+[dir="rtl"] body { text-align: right; }
+[dir="rtl"] .hero-stat-card .d-flex { flex-direction: row-reverse; }

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ProjectRequest;
 use App\Models\Project;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Storage;
 
 class ProjectController extends Controller
 {
@@ -21,9 +22,9 @@ class ProjectController extends Controller
 
     public function store(ProjectRequest $request): RedirectResponse
     {
-        Project::create($this->preparedData($request->validated()));
+        Project::create($this->preparedData($request));
 
-        return redirect()->route('admin.projects.index')->with('success', 'Project created successfully.');
+        return redirect()->route('admin.projects.index')->with('success', __('messages.created_successfully'));
     }
 
     public function edit(Project $project)
@@ -33,26 +34,42 @@ class ProjectController extends Controller
 
     public function update(ProjectRequest $request, Project $project): RedirectResponse
     {
-        $project->update($this->preparedData($request->validated()));
+        $project->update($this->preparedData($request, $project));
 
-        return redirect()->route('admin.projects.index')->with('success', 'Project updated successfully.');
+        return redirect()->route('admin.projects.index')->with('success', __('messages.saved_successfully'));
     }
 
     public function destroy(Project $project): RedirectResponse
     {
+        if ($project->featured_image_path) {
+            Storage::disk('public')->delete($project->featured_image_path);
+        }
+
         $project->delete();
-        return back()->with('success', 'Project deleted.');
+
+        return back()->with('success', __('messages.deleted_successfully'));
     }
 
-    private function preparedData(array $data): array
+    private function preparedData(ProjectRequest $request, ?Project $project = null): array
     {
+        $data = $request->validated();
         $data['is_featured'] = (bool) ($data['is_featured'] ?? false);
         $data['sort_order'] = (int) ($data['sort_order'] ?? 0);
+
+        if ($request->hasFile('featured_image_file')) {
+            if ($project?->featured_image_path) {
+                Storage::disk('public')->delete($project->featured_image_path);
+            }
+            $data['featured_image_path'] = $request->file('featured_image_file')->store('projects', 'public');
+        }
+
         foreach (['features', 'tech_stack', 'gallery_images'] as $field) {
             $data[$field] = isset($data[$field]) && trim((string) $data[$field]) !== ''
                 ? array_values(array_filter(array_map('trim', explode(PHP_EOL, $data[$field]))))
                 : [];
         }
+
+        unset($data['featured_image_file']);
 
         return $data;
     }

@@ -20,6 +20,6 @@ class ContactController extends Controller
 
         ContactMessage::create($validated);
 
-        return back()->with('success', 'Thanks for contacting us. We will reply soon.');
+        return back()->with('success', app()->getLocale()==='ar' ? 'شكراً لتواصلك معنا. سنرد عليك قريباً.' : 'Thanks for contacting us. We will reply soon.');
     }
 }

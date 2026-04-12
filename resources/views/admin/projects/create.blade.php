@@ -10,7 +10,7 @@
 
 @section('content')
 <div class="page-header d-print-none mb-3"><h2 class="page-title">Create Project</h2></div>
-<form method="POST" action="{{ route('admin.projects.store') }}" class="card">
+<form method="POST" action="{{ route('admin.projects.store') }}" class="card" enctype="multipart/form-data">
     <div class="card-body">@include('admin.projects.form')</div>
 </form>
 @endsection
