@@ -63,7 +63,7 @@ class ProjectController extends Controller
             $data['featured_image_path'] = $request->file('featured_image_file')->store('projects', 'public');
         }
 
-        foreach (['features', 'tech_stack', 'gallery_images'] as $field) {
+        foreach (['features', 'tech_stack', 'gallery_images', 'supported_platforms'] as $field) {
             $data[$field] = isset($data[$field]) && trim((string) $data[$field]) !== ''
                 ? array_values(array_filter(array_map('trim', explode(PHP_EOL, $data[$field]))))
                 : [];

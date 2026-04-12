@@ -11,7 +11,7 @@
                 <ul class="list-unstyled mb-0 small">
                     <li><a href="{{ route('services') }}">{{ __('messages.nav.services') }}</a></li>
                     <li><a href="{{ route('projects.index') }}">{{ __('messages.nav.projects') }}</a></li>
-                    <li><a href="{{ route('demo-login') }}">{{ __('messages.nav.demo') }}</a></li>
+                    <li><a href="{{ route('demo-login') }}">{{ __('messages.nav.demo') }}</a></li><li><a href="{{ route('feedback.create') }}">Feedback / Report</a></li>
                 </ul>
             </div>
             <div class="col-lg-4">
