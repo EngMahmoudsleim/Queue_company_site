@@ -61,25 +61,29 @@ class Project extends Model
             return Storage::url($this->featured_image_path);
         }
 
-        if ($this->featured_image) {
-            if (str_starts_with($this->featured_image, 'http://') || str_starts_with($this->featured_image, 'https://') || str_starts_with($this->featured_image, '/')) {
-                return $this->featured_image;
-            }
-
-            return Storage::url($this->featured_image);
+        if ($this->featured_image && ! str_starts_with($this->featured_image, 'http://') && ! str_starts_with($this->featured_image, 'https://')) {
+            return str_starts_with($this->featured_image, '/')
+                ? $this->featured_image
+                : Storage::url($this->featured_image);
         }
 
-        return 'https://placehold.co/1200x500';
+        return asset('images/project-placeholder.svg');
     }
 
     public function getGalleryImageUrlsAttribute(): array
     {
         return collect($this->gallery_images ?? [])->map(function ($item) {
-            if (str_starts_with($item, 'http://') || str_starts_with($item, 'https://') || str_starts_with($item, '/')) {
-                return $item;
+            if (! is_string($item) || trim($item) === '') {
+                return null;
             }
 
-            return Storage::url($item);
-        })->all();
+            if (str_starts_with($item, 'http://') || str_starts_with($item, 'https://')) {
+                return null;
+            }
+
+            return str_starts_with($item, '/')
+                ? $item
+                : Storage::url($item);
+        })->filter()->values()->all();
     }
 }

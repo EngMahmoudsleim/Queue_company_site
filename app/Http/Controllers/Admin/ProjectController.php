@@ -44,6 +44,9 @@ class ProjectController extends Controller
         if ($project->featured_image_path) {
             Storage::disk('public')->delete($project->featured_image_path);
         }
+        if (is_array($project->gallery_images) && count($project->gallery_images)) {
+            Storage::disk('public')->delete($project->gallery_images);
+        }
 
         $project->delete();
 
@@ -55,6 +58,7 @@ class ProjectController extends Controller
         $data = $request->validated();
         $data['is_featured'] = (bool) ($data['is_featured'] ?? false);
         $data['sort_order'] = (int) ($data['sort_order'] ?? 0);
+        $data['featured_image'] = null;
 
         if ($request->hasFile('featured_image_file')) {
             if ($project?->featured_image_path) {
@@ -62,14 +66,24 @@ class ProjectController extends Controller
             }
             $data['featured_image_path'] = $request->file('featured_image_file')->store('projects', 'public');
         }
+        if ($request->hasFile('gallery_images_files')) {
+            if (is_array($project?->gallery_images) && count($project->gallery_images)) {
+                Storage::disk('public')->delete($project->gallery_images);
+            }
 
-        foreach (['features', 'tech_stack', 'gallery_images', 'supported_platforms'] as $field) {
+            $data['gallery_images'] = collect($request->file('gallery_images_files'))
+                ->map(fn ($file) => $file->store('projects/gallery', 'public'))
+                ->values()
+                ->all();
+        }
+
+        foreach (['features', 'tech_stack', 'supported_platforms'] as $field) {
             $data[$field] = isset($data[$field]) && trim((string) $data[$field]) !== ''
                 ? array_values(array_filter(array_map('trim', explode(PHP_EOL, $data[$field]))))
                 : [];
         }
 
-        unset($data['featured_image_file']);
+        unset($data['featured_image_file'], $data['gallery_images_files']);
 
         return $data;
     }
