@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="500" viewBox="0 0 1200 500" role="img" aria-label="Project image placeholder">
+  <rect width="1200" height="500" fill="#f1f5f9"/>
+  <g fill="#94a3b8" font-family="Arial, sans-serif" text-anchor="middle">
+    <text x="600" y="240" font-size="42" font-weight="700">Project Image</text>
+    <text x="600" y="285" font-size="24">No uploaded image yet</text>
+  </g>
+</svg>

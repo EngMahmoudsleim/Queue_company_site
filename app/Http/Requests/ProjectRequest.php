@@ -21,8 +21,9 @@ class ProjectRequest extends FormRequest
             'slug' => ['required', 'string', 'max:180', Rule::unique('projects', 'slug')->ignore($projectId)],
             'short_description' => ['required', 'string', 'max:280'],
             'full_description' => ['required', 'string', 'min:40'],
-            'featured_image' => ['nullable', 'string', 'max:255'],
             'featured_image_file' => ['nullable', 'image', 'max:4096'],
+            'gallery_images_files' => ['nullable', 'array'],
+            'gallery_images_files.*' => ['image', 'max:4096'],
             'category' => ['required', 'string', 'max:80'],
             'project_type' => ['required', Rule::in(['web', 'saas', 'desktop', 'mobile', 'offline'])],
             'deployment_mode' => ['nullable', 'string', 'max:120'],
@@ -39,7 +40,6 @@ class ProjectRequest extends FormRequest
             'meta_description' => ['nullable', 'string', 'max:255'],
             'features' => ['nullable', 'string'],
             'tech_stack' => ['nullable', 'string'],
-            'gallery_images' => ['nullable', 'string'],
         ];
     }
 }
