@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 
 class Project extends Model
@@ -119,7 +120,13 @@ class Project extends Model
         if (str_starts_with($normalized, 'images/')) {
             $publicPath = public_path($normalized);
 
-            return is_file($publicPath) ? asset($normalized) : self::IMAGE_PLACEHOLDER_URL;
+            if (is_file($publicPath)) {
+                return asset($normalized);
+            }
+
+            $this->logMissingImage($value, $normalized, "public");
+
+            return self::IMAGE_PLACEHOLDER_URL;
         }
 
         return $this->resolveStoragePath($normalized);
@@ -137,6 +144,21 @@ class Project extends Model
             return Storage::disk('public')->url($relativePath);
         }
 
+        $this->logMissingImage($relativePath, $relativePath, "storage");
+
         return self::IMAGE_PLACEHOLDER_URL;
     }
+    private function logMissingImage(string $originalValue, string $resolvedPath, string $source): void
+    {
+        Log::warning('Project image could not be resolved', [
+            'project_id' => $this->id,
+            'project_slug' => $this->slug,
+            'source' => $source,
+            'original_value' => $originalValue,
+            'resolved_path' => $resolvedPath,
+            'public_disk_root' => storage_path('app/public'),
+            'public_storage_link' => public_path('storage'),
+        ]);
+    }
+
 }
