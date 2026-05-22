@@ -118,15 +118,7 @@ class Project extends Model
         }
 
         if (str_starts_with($normalized, 'images/')) {
-            $publicPath = public_path($normalized);
-
-            if (is_file($publicPath)) {
-                return asset($normalized);
-            }
-
-            $this->logMissingImage($value, $normalized, "public");
-
-            return self::IMAGE_PLACEHOLDER_URL;
+            return asset($normalized);
         }
 
         return $this->resolveStoragePath($normalized);
@@ -140,13 +132,11 @@ class Project extends Model
             return self::IMAGE_PLACEHOLDER_URL;
         }
 
-        if (Storage::disk('public')->exists($relativePath)) {
-            return Storage::disk('public')->url($relativePath);
+        if (!Storage::disk('public')->exists($relativePath)) {
+            $this->logMissingImage($relativePath, $relativePath, "storage");
         }
 
-        $this->logMissingImage($relativePath, $relativePath, "storage");
-
-        return self::IMAGE_PLACEHOLDER_URL;
+        return Storage::disk('public')->url($relativePath);
     }
     private function logMissingImage(string $originalValue, string $resolvedPath, string $source): void
     {
