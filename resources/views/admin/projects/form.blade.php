@@ -4,7 +4,7 @@
   <div class="col-md-6"><label class="form-label required">Slug</label><input class="form-control @error('slug') is-invalid @enderror" name="slug" value="{{ old('slug',$project->slug) }}"></div>
   <div class="col-12"><label class="form-label required">Short Description</label><textarea class="form-control" name="short_description" rows="2">{{ old('short_description',$project->short_description) }}</textarea></div>
   <div class="col-12"><label class="form-label required">Full Description</label><textarea class="form-control" name="full_description" rows="5">{{ old('full_description',$project->full_description) }}</textarea></div>
-  <div class="col-md-6"><label class="form-label">Featured Image (URL or /images/...)</label><input class="form-control" name="featured_image" value="{{ old('featured_image',$project->featured_image) }}"></div>
+  <div class="col-md-6"><label class="form-label">Featured Image (external URL or relative path)</label><input class="form-control" name="featured_image" value="{{ old('featured_image',$project->featured_image) }}"></div>
   <div class="col-md-6"><label class="form-label">Upload Featured Image</label><input type="file" class="form-control" name="featured_image_file"></div>
   <div class="col-md-3"><label class="form-label required">Category</label><input class="form-control" name="category" value="{{ old('category',$project->category) }}"></div>
   <div class="col-md-3"><label class="form-label">Project Type</label><select class="form-select" name="project_type">@foreach(['web','saas','desktop','mobile','offline'] as $type)<option value="{{ $type }}" @selected(old('project_type',$project->project_type ?? 'web')===$type)>{{ ucfirst($type) }}</option>@endforeach</select></div>
@@ -20,6 +20,6 @@
   <div class="col-12"><label class="form-label">Demo Note</label><input class="form-control" name="demo_note" value="{{ old('demo_note',$project->demo_note) }}" placeholder="Remote demo available / Demo by request"></div>
   <div class="col-md-4"><label class="form-label">Features (one per line)</label><textarea class="form-control" name="features" rows="5">{{ old('features', is_array($project->features??null) ? implode(PHP_EOL,$project->features) : '') }}</textarea></div>
   <div class="col-md-4"><label class="form-label">Tech Stack (one per line)</label><textarea class="form-control" name="tech_stack" rows="5">{{ old('tech_stack', is_array($project->tech_stack??null) ? implode(PHP_EOL,$project->tech_stack) : '') }}</textarea></div>
-  <div class="col-md-4"><label class="form-label">Gallery URLs/paths (one per line)</label><textarea class="form-control" name="gallery_images" rows="5">{{ old('gallery_images', is_array($project->gallery_images??null) ? implode(PHP_EOL,$project->gallery_images) : '') }}</textarea></div>
+  <div class="col-md-4"><label class="form-label">Gallery image values (external URL or relative path, one per line)</label><textarea class="form-control" name="gallery_images" rows="5">{{ old('gallery_images', is_array($project->gallery_images??null) ? implode(PHP_EOL,$project->gallery_images) : '') }}</textarea></div>
   <div class="col-12 d-flex justify-content-end gap-2 pt-2"><a href="{{ route('admin.projects.index') }}" class="btn btn-outline-secondary">Cancel</a><button class="btn btn-primary">Save Project</button></div>
 </div>

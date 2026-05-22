@@ -61,13 +61,19 @@ class ProjectController extends Controller
                 Storage::disk('public')->delete($project->featured_image_path);
             }
             $data['featured_image_path'] = $request->file('featured_image_file')->store('projects', 'public');
+            $data['featured_image'] = null;
         }
+
+
+        $data['featured_image'] = Project::normalizeImageValueForStorage($data['featured_image'] ?? null);
 
         foreach (['features', 'tech_stack', 'gallery_images', 'supported_platforms'] as $field) {
             $data[$field] = isset($data[$field]) && trim((string) $data[$field]) !== ''
                 ? array_values(array_filter(array_map('trim', explode(PHP_EOL, $data[$field]))))
                 : [];
         }
+
+        $data['gallery_images'] = array_values(array_filter(array_map(fn ($value) => Project::normalizeImageValueForStorage($value), $data['gallery_images'] ?? [])));
 
         unset($data['featured_image_file']);
 
