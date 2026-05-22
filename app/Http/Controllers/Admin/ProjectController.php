@@ -61,7 +61,11 @@ class ProjectController extends Controller
                 Storage::disk('public')->delete($project->featured_image_path);
             }
             $data['featured_image_path'] = $request->file('featured_image_file')->store('projects', 'public');
+            $data['featured_image'] = null;
         }
+
+
+        $data['featured_image'] = Project::normalizeImageValueForStorage($data['featured_image'] ?? null);
 
         foreach (['features', 'tech_stack', 'gallery_images', 'supported_platforms'] as $field) {
             $data[$field] = isset($data[$field]) && trim((string) $data[$field]) !== ''
@@ -69,7 +73,21 @@ class ProjectController extends Controller
                 : [];
         }
 
-        unset($data['featured_image_file']);
+        $data['gallery_images'] = array_values(array_filter(array_map(fn ($value) => Project::normalizeImageValueForStorage($value), $data['gallery_images'] ?? [])));
+
+        if ($request->hasFile('gallery_image_files')) {
+            $uploadedGalleryImages = [];
+
+            foreach ($request->file('gallery_image_files') as $imageFile) {
+                if ($imageFile) {
+                    $uploadedGalleryImages[] = $imageFile->store('projects/gallery', 'public');
+                }
+            }
+
+            $data['gallery_images'] = array_values(array_merge($data['gallery_images'], $uploadedGalleryImages));
+        }
+
+        unset($data['featured_image_file'], $data['gallery_image_files']);
 
         return $data;
     }

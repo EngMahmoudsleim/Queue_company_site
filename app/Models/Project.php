@@ -10,6 +10,8 @@ class Project extends Model
 {
     use HasFactory;
 
+    private const IMAGE_PLACEHOLDER_URL = 'https://placehold.co/1200x500?text=No+Image';
+
     protected $fillable = [
         'title',
         'slug',
@@ -55,31 +57,86 @@ class Project extends Model
         return $query->orderBy('sort_order')->orderByDesc('is_featured')->orderByDesc('created_at');
     }
 
+    public static function normalizeImageValueForStorage(?string $value): ?string
+    {
+        $value = trim((string) $value);
+        if ($value === '') {
+            return null;
+        }
+
+        if (self::isExternalUrl($value)) {
+            return $value;
+        }
+
+        $value = ltrim($value, '/');
+
+        if (str_starts_with($value, 'storage/')) {
+            return ltrim(substr($value, strlen('storage/')), '/');
+        }
+
+        return $value;
+    }
+
     public function getFeaturedImageUrlAttribute(): string
     {
-        if ($this->featured_image_path) {
-            return Storage::url($this->featured_image_path);
-        }
+        $candidate = $this->featured_image_path ?: $this->featured_image;
 
-        if ($this->featured_image) {
-            if (str_starts_with($this->featured_image, 'http://') || str_starts_with($this->featured_image, 'https://') || str_starts_with($this->featured_image, '/')) {
-                return $this->featured_image;
-            }
-
-            return Storage::url($this->featured_image);
-        }
-
-        return 'https://placehold.co/1200x500';
+        return $this->resolveImageUrl($candidate);
     }
 
     public function getGalleryImageUrlsAttribute(): array
     {
-        return collect($this->gallery_images ?? [])->map(function ($item) {
-            if (str_starts_with($item, 'http://') || str_starts_with($item, 'https://') || str_starts_with($item, '/')) {
-                return $item;
-            }
+        return collect($this->gallery_images ?? [])
+            ->map(fn ($item) => $this->resolveImageUrl($item))
+            ->all();
+    }
 
-            return Storage::url($item);
-        })->all();
+    private static function isExternalUrl(string $value): bool
+    {
+        return str_starts_with($value, 'http://') || str_starts_with($value, 'https://');
+    }
+
+    private function resolveImageUrl(?string $value): string
+    {
+        $value = trim((string) $value);
+
+        if ($value === '') {
+            return self::IMAGE_PLACEHOLDER_URL;
+        }
+
+        if (self::isExternalUrl($value)) {
+            return $value;
+        }
+
+        $normalized = ltrim($value, '/');
+
+        if (str_starts_with($normalized, 'storage/')) {
+            $relativePath = ltrim(substr($normalized, strlen('storage/')), '/');
+
+            return $this->resolveStoragePath($relativePath);
+        }
+
+        if (str_starts_with($normalized, 'images/')) {
+            $publicPath = public_path($normalized);
+
+            return is_file($publicPath) ? asset($normalized) : self::IMAGE_PLACEHOLDER_URL;
+        }
+
+        return $this->resolveStoragePath($normalized);
+    }
+
+    private function resolveStoragePath(string $relativePath): string
+    {
+        $relativePath = ltrim($relativePath, '/');
+
+        if ($relativePath === '') {
+            return self::IMAGE_PLACEHOLDER_URL;
+        }
+
+        if (Storage::disk('public')->exists($relativePath)) {
+            return Storage::disk('public')->url($relativePath);
+        }
+
+        return self::IMAGE_PLACEHOLDER_URL;
     }
 }
