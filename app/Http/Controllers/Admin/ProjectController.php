@@ -75,7 +75,19 @@ class ProjectController extends Controller
 
         $data['gallery_images'] = array_values(array_filter(array_map(fn ($value) => Project::normalizeImageValueForStorage($value), $data['gallery_images'] ?? [])));
 
-        unset($data['featured_image_file']);
+        if ($request->hasFile('gallery_image_files')) {
+            $uploadedGalleryImages = [];
+
+            foreach ($request->file('gallery_image_files') as $imageFile) {
+                if ($imageFile) {
+                    $uploadedGalleryImages[] = $imageFile->store('projects/gallery', 'public');
+                }
+            }
+
+            $data['gallery_images'] = array_values(array_merge($data['gallery_images'], $uploadedGalleryImages));
+        }
+
+        unset($data['featured_image_file'], $data['gallery_image_files']);
 
         return $data;
     }

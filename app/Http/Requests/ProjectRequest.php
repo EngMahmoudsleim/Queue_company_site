@@ -40,6 +40,8 @@ class ProjectRequest extends FormRequest
             'features' => ['nullable', 'string'],
             'tech_stack' => ['nullable', 'string'],
             'gallery_images' => ['nullable', 'string'],
+            'gallery_image_files' => ['nullable', 'array'],
+            'gallery_image_files.*' => ['nullable', 'image', 'max:4096'],
         ];
     }
 }
